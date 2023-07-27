@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Skripsi S1 TI USU</title>
+  <style>
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .based-bg {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    margin: 0;
+  }
+
+  .based-bg img {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+  }
+
+  .midcen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -55%);
+    transform: translate(-50%, -55%);
+    background: rgba(255, 255, 255, 1);
+    padding: 20px 56px;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  .midcen h2 {
+    font-size: 34px;
+    color: #353535;
+  }
+
+  .midcen h2 span {
+    font-size: 28px;
+    color: #454545;
+  }
+
+  .midcen p {
+    font-size: 24px;
+    color: #353535;
+    line-height: 30px;
+  }
+
+  .midcen p img {
+    width: 170px;
+    height: 170px;
+  }
+
+  .midcen p button {
+    border: 1px solid #166b05;
+    background: #187c04;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 24px;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-top: 16px;
+  }
+
+  .popup {
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .histori {
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .histori > .main {
+    width: 75%;
+    max-height: 75%;
+    position: absolute;
+    padding: 28px;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -55%);
+    transform: translate(-50%, -55%);
+    background: #fff;
+    border-radius: 10px;
+  }
+
+  .result {
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .result > .main {
+    width: 80%;
+    max-height: 80%;
+    position: absolute;
+    padding: 28px 0;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -55%);
+    transform: translate(-50%, -55%);
+    background: #fff;
+    border-radius: 10px;
+    overflow-y: auto;
+  }
+
+  .loading {
+    width: 75%;
+    max-height: 75%;
+    position: absolute;
+    padding: 28px;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -55%);
+    transform: translate(-50%, -55%);
+    background: #fff;
+    border-radius: 10px;
+  }
+
+  .loading > span.closed {
+    font-size: 24px;
+    font-weight: bold;
+    color: #454545;
+    position: absolute;
+    right: 14px;
+    top: 5px;
+    cursor: pointer;
+  }
+
+  .main > span.closed {
+    font-size: 24px;
+    font-weight: bold;
+    color: #454545;
+    position: absolute;
+    right: 14px;
+    top: 5px;
+    cursor: pointer;
+  }
+
+  .result > span.closed {
+    font-size: 24px;
+    font-weight: bold;
+    color: #454545;
+    position: absolute;
+    right: 14px;
+    top: 5px;
+    cursor: pointer;
+  }
+
+  .popup > .loading > .top {
+    width: 100%;
+    height: auto;
+    float: left;
+  }
+
+  .histori > .main > .bottom {
+    width: 100%;
+    height: auto;
+    float: left;
+  }
+
+  .histori > .main > .bottom > h2 {
+    font-size: 17px;
+    margin: 10px 0 15px;
+    color: #353535;
+    font-weight: bold;
+  }
+
+  .result > .main > .bottom > h2 {
+    font-size: 17px;
+    margin: 10px 0 15px;
+    color: #353535;
+    font-weight: bold;
+  }
+
+  .result > .main > .bottom {
+    width: 90%;
+    height: auto;
+    float: left;
+    padding: 0 5%;
+  }
+
+  .top input.name {
+    width: 23%;
+    height: auto;
+    border: 1px solid #c5c5c5;
+    border-radius: 4px 0 0 4px;
+    padding: 2% 2%;
+    float: left;
+    font-size: 15px;
+  }
+
+  .top input.url {
+    width: 54%;
+    height: auto;
+    border: 1px solid #c5c5c5;
+    border-radius: 0px 0 0 0px;
+    padding: 2% 2%;
+    float: left;
+    font-size: 15px;
+  }
+
+  .top button {
+    width: 14%;
+    float: left;
+    height: auto;
+    text-align: center;
+    padding: 2% 0;
+    font-size: 15px;
+    border: 1px solid #166b05;
+    background: #187c04;
+    color: #fff;
+    border-radius: 0 4px 4px 0;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .show {
+    display: block;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .div-scroll, table {
+    padding: 12px;
+    height: 400px;
+    width: 900px;
+    border-radius: 10px;
+    box-shadow: 1px 2px 1px 2px rgb(230, 229, 229);
+    margin: 15px;
+    border: 1px solid #141313;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  </style>
+  <link rel="stylesheet" href="https://datatables.net/media/css/site-examples.css?_=41cab7b2e63a641a482f02634433cc4c1" type="text/css" />
+  <link rel="stylesheet "href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" type="text/css" />
+</head>
+<body>
+<div class="based-bg">
+  <img src="bg.jpeg" alt="background" />
+</div>
+<div style="position: fixed; width:100%; height: 100%; background: rgba(0,0,0, 0.4)"></div>
+<div id="app">
+  <div class="midcen">
+    <p><img src="logo.png" /></p>
+    <h2>Rizki Amanda Putri <span> - 171402095</span></h2>
+    <p>Analisis Peringkasan Ulasan Pada Fitur Produk Rumah Tangga Menggunakan BERTopic</p>
+    <p>
+      <button style="margin-right: 7px" v-on:click="openPopup()">Analisa Ulasan</button>
+      <button style="margin-left: 7px" v-on:click="openHistori()">
+        <span v-html="loadHistori ? 'Loading ...' : 'Histori Ulasan'"></span>
+      </button>
+    </p>
+  </div>
+
+  <div class="popup" v-if="popup">
+    <div class="loading">
+      <span class="closed" v-on:click="closedPopup()">x</span>
+      <div class="top">
+        <input class="name" type="text" placeholder="Nama Produk" v-model="named" />
+        <input class="url" type="text" placeholder="Url/Link Produk" v-model="linked" />
+        <button v-on:click="process()"><span v-html="loads === 'process' ? 'Loading...' : 'Scrapping'"></span></button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="histori" v-if="histori">
+    <div class="main">
+      <span class="closed" v-on:click="closedHistori()">x</span>
+      <div class="bottom">
+        <h2>Datalist Histori Ulasan</h2>
+        <div class="div-scroll">
+          <table style="width: 100%; padding: 0" cellpadding="0" cellspacing="0">
+            <thead>
+              <tr>
+                <th style="width: 40%; border: 1px solid #656565; padding: 7px; text-align:center; font-weight: bold; font-size: 18px">Nama Produk</th>
+                <th style="width: 30%; border: 1px solid #656565; padding: 7px; text-align:center; font-weight: bold; font-size: 18px">Hasil</th>
+                <th style="width: 30%; border: 1px solid #656565; padding: 7px; text-align:center; font-weight: bold; font-size: 18px">Hapus Data</th>
+              </tr>
+            </thead>
+            <tbody v-if="datalist.length > 0">
+              <tr v-for="(row, index) in datalist">
+                <td style="border: 1px solid #656565; padding: 7px; text-align:center; font-size: 14px">
+                  <span v-html="replacing(row.item)"></span>
+                </td>
+                <td style="border: 1px solid #656565; padding: 7px; text-align:center">
+                  <span v-on:click="detail($event, row.item)" :key="row.item" style="cursor: pointer; font-weight: bold; font-size: 14px;" v-html="loadDetail ? 'loading ...' : 'Detail'"></span>
+                </td>
+                <td style="border: 1px solid #656565; padding: 7px; text-align:center">
+                  <span v-on:click="hapus($event, row.item, index)" :key="row.item" style="cursor: pointer; font-weight: bold; margin-left: 16px;" v-html="loadDelete ? 'loading ...' : 'Delete'"></span>
+                </td>
+              </tr>
+            </tbody>
+            <tbody v-else>
+              <tr>
+                <td colspan="2" style="border: 1px solid #656565; padding: 7px; text-align:center">Data Histori Ulasan Belum Tersedia</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="result" :style="!result?'display:none': 'display:block'">
+    <div class="main">
+      <span class="closed" v-on:click="closedResult()">x</span>
+      <div class="bottom">
+        <img v-if="detail" style="width: 950px; height: 450px" :src="'../python/imgfile/'+filename+'.png'" alt="barchart" />
+
+        <br />
+
+        <table style="height: 50%; width: 97%" cellpadding="0" cellspacing="0">
+          <thead>
+            <tr>
+              <th style="border: 1px solid #656565; padding: 7px; text-align:center; font-weight: bold">Negative</th>
+              <th style="border: 1px solid #656565; padding: 7px; text-align:center; font-weight: bold">Neutral</th>
+              <th style="border: 1px solid #656565; padding: 7px; text-align:center; font-weight: bold">Positive</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="border: 1px solid #656565; padding: 7px; text-align:center">{{ final.negative }}</td>
+              <td style="border: 1px solid #656565; padding: 7px; text-align:center">{{ final.netral }}</td>
+              <td style="border: 1px solid #656565; padding: 7px; text-align:center">{{ final.positive }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <br />
+
+        <h2>Raw Data</h2>
+        <table id="example0" class="display dataTable" style="width:100%">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Comments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in tables.newcomments">
+              <td>{{ index+1 }}</td>
+              <td>{{ item }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <br />
+
+        <h2>Datalist Splitting</h2>
+        <table id="example1" class="display dataTable" style="width:100%">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Comments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in tables.splitting">
+              <td>{{ index+1 }}</td>
+              <td>{{ item }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <br />
+
+        <h2>Datalist Casefolding</h2>
+        <table id="example2" class="display dataTable" style="width:100%">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Comments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in tables.casefolding">
+              <td>{{ index+1 }}</td>
+              <td>{{ item }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <br />
+
+        <h2>Datalist Punctuation</h2>
+        <table id="example3" class="display dataTable" style="width:100%">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Comments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in tables.punctuation">
+              <td>{{ index+1 }}</td>
+              <td>{{ item }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <br />
+
+        <h2>Datalist Tokenized</h2>
+        <table id="example4" class="display dataTable" style="width:100%">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Comments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in tables.tokenized">
+              <td>{{ index+1 }}</td>
+              <td>{{ parseTokenized(item) }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <br />
+
+        <h2>Datalist Stopwords</h2>
+        <table id="example5" class="display dataTable" style="width:100%">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Comments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in tables.stopwords">
+              <td>{{ index+1 }}</td>
+              <td>{{ item }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <br />
+
+        <h2>Datalist Sentiment</h2>
+        <table id="example6" class="display dataTable" style="width:100%">
+          <thead>
+            <tr>
+              <th>Topic</th>
+              <th>Document</th>
+              <th>Probability</th>
+              <th>Sentiment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in tables.sentiment">
+              <td>{{ item.Name }}</td>
+              <td>{{ item.Document }}</td>
+              <td>{{ item.Probability }}</td>
+              <td>{{ item.Sentiment }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <br />
+
+        <iframe :src="'../python/htmlfile/'+filehtml+'.html'" height="350" style="width: 100%" title="Iframe Example"></iframe>
+
+        <br />
+
+        <h2>Data Topic Info</h2>
+        <!-- <img v-if="detail" style="width: 950px; height: 450px" :src="'../python/imgfile/topic_a'+filename+'.png'" alt="barchart" />
+        <br /> -->
+        <table id="example7" class="display dataTable" style="width:100%">
+          <thead>
+            <tr>
+              <th>Topic</th>
+              <th>Count</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in tables.topic_info">
+              <td>{{ item.Topic }}</td>
+              <td>{{ item.Count }}</td>
+              <td>{{ item.Name }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- <br />
+
+        <h2>Topic Info - Probability</h2>
+        <img v-if="detail" style="width: 950px; height: 450px" :src="'../python/imgfile/topic_'+filename+'.png'" alt="barchart" />
+        <br />
+        <table id="example8" class="display dataTable" style="width:100%">
+          <thead>
+            <tr>
+              <th>Topic</th>
+              <th>Probability</th> -->
+              <!-- <th>Sentiment</th> -->
+            <!-- </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in tables.topic_probability">
+              <td>{{ item.x }}</td>
+              <td>{{ item.y }}</td> -->
+              <!-- <td>{{ item.z }}</td> -->
+            <!-- </tr>
+          </tbody>
+        </table> -->
+
+        <!-- <br />
+
+        <h2>Topic Label</h2> -->
+        <!-- <img v-if="detail" style="width: 950px; height: 450px" :src="'../python/imgfile/topic_'+filename+'.png'" alt="barchart" />
+        <br /> -->
+        <!-- <table id="example9" class="display dataTable" style="width:100%">
+          <thead>
+            <tr>
+              <th>Topic</th>
+              <th>Topic Label</th>
+              <th>Sentiment</th> -->
+            <!-- </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in tables.topic_labels">
+              <td>{{ item.x }}</td>
+              <td>{{ item.y }}</td>
+              <td>{{ item.z }}</td> -->
+            <!-- </tr>
+          </tbody>
+        </table> -->
+      </div>
+    </div>
+  </div>
+  <!-- <p>{{ tampil }}</p> -->
+</div>
+
+<script type="text/javascript" src="axios.min.js"></script>
+<script type="text/javascript" src="vue.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+  new Vue({
+    el: "#app",
+    data: {
+      loadDetail: false,
+      loadDelete: false,
+      loadHistori: false,
+      datalist: [],
+      filename: 'no-image',
+      filehtml: 'index',
+      named: '',
+      linked: '',
+      result: false,
+      histori: false,
+      loads: 'false',
+      popup: false,
+      final: {
+        netral: 0,
+        negative: 0,
+        positive: 0
+      },
+      tables: {
+        newcomments: [],
+        splitting: [],
+        casefolding: [],
+        punctuation: [],
+        tokenized: [],
+        stopwords: [],
+        sentiment: [],
+        topic_info: [],
+        // topic_label: []
+        // topic_probability: []
+      }
+    },
+    mounted(){
+      this.loads = 'false';
+    },
+    methods : {
+      statusSentiment:function(topic) {
+        return topic === 0 ? 'Netral' : topic >= 1 ? 'Positif' : 'Negatif';
+      },
+      parseTokenized:function(item) {
+        let str = '[ ';
+        for(let i = 0; i < item.length; i++) {
+          str += item[i]+', ';
+        }
+        str += ' ]';
+        return str;
+      },
+      replacing:function(item) {
+        return item.replace("_"," ");
+      },
+      process:function() {
+        if (this.linked.trim() != '' && this.linked.trim() != '') {
+          this.loads = 'process';
+          let named = this.named.replace(/ /g,"_");
+          let form_data = new FormData(), url = 'http://localhost:6565/analisa';
+          form_data.append('named', named);
+          form_data.append('linked', this.linked);
+          const vm = this;
+          axios.post(
+              url, form_data,
+              { headers: { 'Content-Type': 'multipart/form-data' } }
+          ).then(function (response) {
+            setTimeout(function() {
+              if (response.data.status === 'berhasil') {
+                vm.loads = 'done';
+                vm.named = "";
+                vm.linked = "";
+                alert('Scrapping Produk Berhasil Dijalankan');
+              }
+            }, 2500, this);
+          }).catch(function (error) {
+            setTimeout(function() {
+              console.log(error);
+              vm.loads = 'false';
+              alert('Scrapping Produk Gagal Dijalankan');
+            }, 2500, this);
+          })
+        }
+      },
+      openPopup:function() {
+        this.popup = true;
+      },
+      closedPopup:function() {
+        this.popup = false;
+      },
+      openHistori:function() {
+        this.loadHistori = true;
+        let form_data = new FormData(), url = 'http://localhost:6565/listcsv';
+        form_data.append('posisi', '1');
+        const vm = this;
+        axios.post(
+            url, form_data,
+            { headers: { 'Content-Type': 'multipart/form-data' } }
+        ).then(function (response) {
+          setTimeout(function() {
+            console.log(response)
+            if (response.data.status === 'berhasil') {
+              vm.datalist = response.data.filename;
+              vm.histori = true;
+              vm.loadHistori = false;
+            }
+          }, 2500, this);
+        }).catch(function (error) {
+          setTimeout(function() {
+            console.log(error);
+            vm.histori = false;
+            vm.loadHistori = false;
+            alert('Data Histori Ulasan Gagal Dimuat');
+          }, 2500, this);
+        })
+      },
+      closedHistori:function() {
+        this.histori = false;
+        this.loadHistori = false;
+      },
+      closedResult:function() {
+        this.result = false;
+      },
+      detail:function(event, item) {
+        console.log(event)
+        this.loadDetail = true;
+        let form_data = new FormData(), url = 'http://localhost:6565/historian';
+        form_data.append('filename', item);
+        const vm = this;
+        axios.post(
+            url, form_data,
+            { headers: { 'Content-Type': 'multipart/form-data' } }
+        ).then(function (response) {
+          setTimeout(function() {
+            console.log(response)
+            if (response.data.status === 'berhasil') {
+              vm.loadDetail = false;
+              setTimeout(function() {
+                vm.histori = false;
+                vm.result = true;
+                vm.tables.newcomments = response.data.json_newcomments;
+                vm.tables.splitting = response.data.json_splitting;
+                vm.tables.casefolding = response.data.json_casefolding;
+                vm.tables.punctuation = response.data.json_punctuation;
+                vm.tables.tokenized = response.data.json_tokenized;
+                vm.tables.stopwords = response.data.json_stopwords;
+                vm.tables.sentiment = response.data.json_model;
+                vm.tables.topic_info = response.data.json_topic_info;
+                // vm.tables.topic_label = response.data.json_topic_label;
+                // vm.tables.topic_probability = response.data.json_topic_probability;
+                vm.final.netral = response.data.netral;
+                vm.final.negative = response.data.negative;
+                vm.final.positive = response.data.positive;
+                setTimeout(function(){
+                  $('#example0').DataTable();
+                  $('#example1').DataTable();
+                  $('#example2').DataTable();
+                  $('#example3').DataTable();
+                  $('#example4').DataTable();
+                  $('#example5').DataTable();
+                  $('#example6').DataTable();
+                  $('#example7').DataTable();
+                  $('#example8').DataTable()
+                  // $('#example9').DataTable()
+                }, 0);
+                vm.filename = item;
+                vm.filehtml = item;
+                //vm.filename = vm.filename.substring(0, vm.filename.lastIndexOf('.'));
+              }, 750, this);
+            }
+          }, 2500, this);
+        }).catch(function (error) {
+          setTimeout(function() {
+            console.log(error);
+            vm.loadDetail = false;
+            alert('Detail Histori Ulasan Gagal Dimuat');
+          }, 2500, this);
+        })
+      },
+      hapus:function(event, item, index) {
+        this.loadDelete = true;
+        let form_data = new FormData(), url = 'http://localhost:6565/hapusan';
+        form_data.append('filename', item);
+        const vm = this;
+        axios.post(
+            url, form_data,
+            { headers: { 'Content-Type': 'multipart/form-data' } }
+        ).then(function (response) {
+          setTimeout(function() {
+            console.log(response)
+            if (response.data.status === 'berhasil') {
+              vm.loadDelete = false;
+              setTimeout(function() {
+                vm.datalist.splice(index, 1);
+              }, 250, this);
+            }
+          }, 2500, this);
+        }).catch(function (error) {
+          setTimeout(function() {
+            console.log(error);
+            vm.loadDelete = false;
+            alert('Delete Histori Ulasan Gagal Dihapus');
+          }, 2500, this);
+        })
+      },
+    },
+  })
+</script>
+</body>
+</html>
